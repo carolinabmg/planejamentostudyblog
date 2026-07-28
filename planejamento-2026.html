@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Estudos 2026 — Carol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F8F4FB;
+    --bg-panel: #FFFFFF;
+    --ink: #3A2C4D;
+    --ink-soft: #7A6C93;
+    --pink: #F5A9C6;
+    --pink-deep: #E983AE;
+    --mint: #8CE9D4;
+    --lilac: #C9B6EA;
+    --dark: #2B2140;
+    --line: #EAE1F5;
+    --radius: 18px;
+    --radius-sm: 10px;
+    --font-display: 'Baloo 2', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height:1.5;
+    padding-bottom: 80px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding: 56px 24px 40px;
+    text-align:center;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(245,169,198,0.35), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(140,233,212,0.30), transparent 40%),
+      var(--bg);
+  }
+  .hero .hp-bar{
+    max-width: 360px;
+    margin: 0 auto 22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .hp-track{
+    flex:1;
+    height:10px;
+    background: var(--line);
+    border-radius: 20px;
+    overflow:hidden;
+    border: 1px solid #DED0F0;
+  }
+  .hp-fill{
+    height:100%;
+    width: 62%;
+    background: linear-gradient(90deg, var(--pink), var(--mint));
+    border-radius: 20px;
+    transition: width .6s ease;
+  }
+  .hero h1{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 46px);
+    color: var(--dark);
+    letter-spacing: -0.5px;
+  }
+  .hero p.sub{
+    margin-top:10px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    font-weight:600;
+  }
+  .hero .tag-row{
+    margin-top: 22px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    color: var(--dark);
+  }
+
+  /* ---------- NAV ---------- */
+  nav.quest-nav{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(248,244,251,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 16px;
+    display:flex;
+    gap: 6px;
+    overflow-x:auto;
+    scrollbar-width: none;
+  }
+  nav.quest-nav::-webkit-scrollbar{display:none;}
+  nav.quest-nav a{
+    flex-shrink:0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-decoration:none;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    white-space:nowrap;
+    transition: background .2s, color .2s;
+  }
+  nav.quest-nav a:hover{ background: var(--bg-panel); color: var(--dark);}
+
+  /* ---------- LAYOUT ---------- */
+  main{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 0;
+  }
+  section{ margin-bottom: 56px; scroll-margin-top: 70px; }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom: 18px;
+  }
+  .section-head .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--pink-deep);
+    background: #FCEAF3;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .section-head h2{
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .card{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+
+  /* Goals table */
+  .goals-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 14px;
+  }
+  .goal-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .goal-card .icon{ font-size: 22px; }
+  .goal-card h3{
+    font-family: var(--font-display);
+    font-size: 15px;
+    margin: 8px 0 4px;
+    color: var(--dark);
+  }
+  .goal-card p{ font-size: 13.5px; color: var(--ink-soft); }
+
+  /* Subject cards / accordion */
+  .subject{
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow:hidden;
+  }
+  .subject summary{
+    cursor:pointer;
+    list-style:none;
+    padding: 16px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family: var(--font-display);
+    font-weight:600;
+    color: var(--dark);
+    font-size: 15.5px;
+  }
+  .subject summary::-webkit-details-marker{ display:none; }
+  .subject summary .chev{
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    transition: transform .2s;
+    font-size:13px;
+  }
+  .subject[open] summary .chev{ transform: rotate(90deg); }
+  .subject .body{
+    padding: 0 20px 20px;
+    display:flex;
+    gap: 26px;
+    flex-wrap:wrap;
+  }
+  .subject .body .col{ flex:1; min-width: 200px; }
+  .subject .body h4{
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    color: var(--pink-deep);
+    margin-bottom: 8px;
+    text-transform:uppercase;
+    letter-spacing: .04em;
+  }
+  .subject .body ul{ padding-left: 18px; font-size: 14px; color: var(--ink);}
+  .subject .body ul li{ margin-bottom: 4px; }
+  .subject .body p{ font-size: 14px; color: var(--ink);}
+
+  /* Day switcher (weekly organization + english/enem combined) */
+  .day-switch{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom: 16px;
+  }
+  .day-btn{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-panel);
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: all .15s;
+  }
+  .day-btn.active{
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+  .day-panel{ display:none; }
+  .day-panel.active{ display:block; }
+  .day-panel .row{
+    display:flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .day-panel .row:last-child{ border-bottom:none; }
+  .day-panel .row .label{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--pink-deep);
+    width: 90px;
+    flex-shrink:0;
+    padding-top:2px;
+  }
+  .day-panel .row .value{ font-size: 14.5px; }
+
+  /* Timetable (manhã/tarde) */
+  .timetable{ width:100%; border-collapse: collapse; }
+  .timetable td{
+    padding: 9px 10px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--line);
+  }
+  .timetable td:first-child{
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    width: 90px;
+    font-size:12.5px;
+  }
+  .timetable tr:last-child td{ border-bottom:none; }
+
+  .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  @media (max-width:640px){ .two-col{ grid-template-columns: 1fr; } }
+
+  /* Projects timeline */
+  .projects{ display:flex; flex-direction:column; }
+  .proj-row{
+    display:grid;
+    grid-template-columns: 90px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    align-items:center;
+  }
+  .proj-row:last-child{ border-bottom:none; }
+  .proj-row .month{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--mint);
+    background: var(--dark);
+    text-align:center;
+    padding: 6px 4px;
+    border-radius: 8px;
+  }
+  .proj-row .desc{ font-size: 14.5px; }
+
+  /* Pomodoro */
+  .pomo-flow{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    flex-wrap:wrap;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .pomo-chip{
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+  }
+  .pomo-arrow{ color: var(--ink-soft); }
+
+  /* Checklist */
+  .checklist-group h4{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--pink-deep);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin: 18px 0 10px;
+  }
+  .checklist-group:first-child h4{ margin-top:0; }
+  .check-item{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    padding: 8px 0;
+    cursor:pointer;
+    user-select:none;
+  }
+  .check-item .box{
+    width: 20px; height:20px;
+    border-radius: 6px;
+    border: 2px solid var(--lilac);
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 12px;
+    color: transparent;
+    transition: all .15s;
+  }
+  .check-item.done .box{
+    background: var(--mint);
+    border-color: var(--mint);
+    color: var(--dark);
+  }
+  .check-item .txt{ font-size: 14.5px; }
+  .check-item.done .txt{ color: var(--ink-soft); text-decoration: line-through; }
+
+  /* Metas final */
+  .metas-list{ display:flex; flex-direction:column; gap:10px; }
+  .meta-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size: 14.5px;
+    background: var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+  .meta-item .star{ color: var(--pink-deep); flex-shrink:0; }
+
+  footer{
+    text-align:center;
+    padding: 30px 20px 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+
+  h2 .kawaii{ font-size:16px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hp-bar">
+    <span>2º SEM 2026</span>
+    <div class="hp-track"><div class="hp-fill"></div></div>
+    <span>ADS · UNIMAR</span>
+  </div>
+  <h1>🌸 Painel de Estudos 2026</h1>
+  <p class="sub">ADS Unimar · ENEM · Inglês · Portfólio — rotina TEA-friendly</p>
+  <div class="tag-row">
+    <span class="tag">💻 4–6 projetos no GitHub</span>
+    <span class="tag">🇺🇸 Meta A2/B1</span>
+    <span class="tag">🌷 sem sobrecarga</span>
+  </div>
+</div>
+
+<nav class="quest-nav">
+  <a href="#objetivos">Objetivos</a>
+  <a href="#disciplinas">Disciplinas</a>
+  <a href="#ingles">Inglês</a>
+  <a href="#enem">ENEM</a>
+  <a href="#projetos">Projetos GitHub</a>
+  <a href="#rotina">Rotina diária</a>
+  <a href="#semana">Semana</a>
+  <a href="#metodo">Método</a>
+  <a href="#checklist">Checklist</a>
+  <a href="#metas">Metas</a>
+</nav>
+
+<main>
+
+  <section id="objetivos">
+    <div class="section-head"><span class="eyebrow">01</span><h2>Objetivos até dezembro</h2></div>
+    <div class="goals-grid">
+      <div class="goal-card"><div class="icon">💻</div><h3>ADS Unimar</h3><p>Excelente desempenho nas disciplinas do semestre.</p></div>
+      <div class="goal-card"><div class="icon">🧠</div><h3>ENEM</h3><p>Revisar Humanas, Linguagens, Redação e Matemática.</p></div>
+      <div class="goal-card"><div class="icon">🇺🇸</div><h3>Inglês</h3><p>Alcançar A2/B1 e ler documentação técnica com fluência.</p></div>
+      <div class="goal-card"><div class="icon">💼</div><h3>Portfólio</h3><p>Desenvolver de 4 a 6 projetos para o GitHub.</p></div>
+      <div class="goal-card"><div class="icon">🌷</div><h3>Bem-estar</h3><p>Manter rotina constante, evitando sobrecarga.</p></div>
+    </div>
+  </section>
+
+  <section id="disciplinas">
+    <div class="section-head"><span class="eyebrow">02</span><h2>Disciplinas da Unimar</h2></div>
+
+    <details class="subject" open>
+      <summary>💻 Engenharia e Projeto de Software <span class="chev">▶</span></summary>
+      <div class="body">
+        <div class="col">
+          <h4>Objetivos</h4>
+          <ul>
+            <li>Engenharia de Software</li>
+            <li>Ciclo de desenvolvimento</li>
+            <li>Requisitos e UML</li>
+            <li>Metodologias ágeis / Scrum</li>
+            <li>Casos de uso e documentação</li>
+            <li>Qualidade de software</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Projeto do semestre</h4>
+          <p>Criar um projeto completo documentado do início ao fim do semestre.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="subject">
+      <summary>🌐 Fundamentos de Redes de Computadores <span class="chev">▶</span></summary>
+      <div class="body">
+        <div class="col">
+          <h4>Objetivos</h4>
+          <ul>
+            <li>História das redes</li>
+            <li>LAN, MAN e WAN</li>
+            <li>Topologias e modelo OSI</li>
+            <li>TCP/IP e endereçamento IP</li>
+            <li>Equipamentos e cabeamento</li>
+            <li>Segurança básica</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Projeto do semestre</h4>
+          <p>Mapear uma rede doméstica utilizando os conceitos estudados.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="subject">
+      <summary>🌱 Projeto de Vida e Soft Skills II <span class="chev">▶</span></summary>
+      <div class="body">
+        <div class="col">
+          <h4>Objetivos</h4>
+          <ul>
+            <li>Comunicação assertiva</li>
+            <li>Escuta ativa</li>
+            <li>Inteligência emocional</li>
+            <li>Organização e trabalho em equipe</li>
+            <li>Liderança e planejamento de carreira</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Projeto do semestre</h4>
+          <p>Criar um Plano de Desenvolvimento Pessoal para acompanhar sua evolução.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="subject">
+      <summary>🎓 Semana Especial III <span class="chev">▶</span></summary>
+      <div class="body">
+        <div class="col">
+          <p>Todos os sábados: aula especial, eventos, palestras, atividades complementares, networking e certificados.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section id="ingles">
+    <div class="section-head"><span class="eyebrow">03</span><h2>Inglês (30–40 min/dia)</h2></div>
+    <div class="card two-col">
+      <div>
+        <h4 style="font-family:var(--font-mono); font-size:11.5px; color:var(--pink-deep); text-transform:uppercase; margin-bottom:8px;">Segunda a sexta</h4>
+        <ul style="padding-left:18px; font-size:14px;">
+          <li>Vocabulário</li>
+          <li>Listening</li>
+          <li>Leitura</li>
+          <li>Inglês para programação</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-mono); font-size:11.5px; color:var(--pink-deep); text-transform:uppercase; margin-bottom:8px;">Sábado</h4>
+        <ul style="padding-left:18px; font-size:14px;">
+          <li>Filme ou série em inglês</li>
+          <li>Revisão do vocabulário</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="enem">
+    <div class="section-head"><span class="eyebrow">04</span><h2>ENEM — por dia da semana</h2></div>
+    <div class="card">
+      <div class="day-switch" id="enemSwitch"></div>
+      <div id="enemPanels"></div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="section-head"><span class="eyebrow">05</span><h2>Projetos para o GitHub</h2></div>
+    <div class="card projects">
+      <div class="proj-row"><div class="month">AGO</div><div class="desc">Calculadora em Python</div></div>
+      <div class="proj-row"><div class="month">SET</div><div class="desc">Sistema de cadastro</div></div>
+      <div class="proj-row"><div class="month">OUT</div><div class="desc">Site pessoal</div></div>
+      <div class="proj-row"><div class="month">NOV</div><div class="desc">Sistema utilizando banco de dados</div></div>
+      <div class="proj-row"><div class="month">DEZ</div><div class="desc">Projeto completo integrando os conhecimentos do semestre</div></div>
+    </div>
+  </section>
+
+  <section id="rotina">
+    <div class="section-head"><span class="eyebrow">06</span><h2>Rotina diária TEA-friendly</h2></div>
+    <div class="two-col">
+      <div class="card">
+        <h4 style="font-family:var(--font-mono); font-size:11.5px; color:var(--pink-deep); text-transform:uppercase; margin-bottom:10px;">☀️ Manhã</h4>
+        <table class="timetable">
+          <tr><td>09:00</td><td>Acordar com calma</td></tr>
+          <tr><td>09:15</td><td>Café da manhã</td></tr>
+          <tr><td>09:40</td><td>Planejamento do dia</td></tr>
+          <tr><td>10:00–10:50</td><td>Inglês</td></tr>
+          <tr><td>10:50–11:05</td><td>Pausa sensorial</td></tr>
+          <tr><td>11:05–11:55</td><td>Disciplina da Unimar</td></tr>
+          <tr><td>12:00</td><td>Almoço</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h4 style="font-family:var(--font-mono); font-size:11.5px; color:var(--pink-deep); text-transform:uppercase; margin-bottom:10px;">🌼 Tarde</h4>
+        <table class="timetable">
+          <tr><td>13:30–14:20</td><td>ENEM</td></tr>
+          <tr><td>14:20–14:35</td><td>Pausa</td></tr>
+          <tr><td>14:35–15:25</td><td>Exercícios da faculdade</td></tr>
+          <tr><td>15:25–15:45</td><td>Descanso</td></tr>
+          <tr><td>15:45–16:35</td><td>Projeto prático / GitHub</td></tr>
+          <tr><td>16:35–16:50</td><td>Pausa</td></tr>
+          <tr><td>16:50–17:30</td><td>Revisão e mapas mentais</td></tr>
+          <tr><td>17:30</td><td>Organização do dia seguinte</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="semana">
+    <div class="section-head"><span class="eyebrow">07</span><h2>Organização da semana</h2></div>
+    <div class="card">
+      <div class="day-switch" id="weekSwitch"></div>
+      <div id="weekPanels"></div>
+    </div>
+  </section>
+
+  <section id="metodo">
+    <div class="section-head"><span class="eyebrow">08</span><h2>Método de estudos</h2></div>
+    <div class="card">
+      <div class="pomo-flow">
+        <span class="pomo-chip">🕐 50 min de foco</span>
+        <span class="pomo-arrow">→</span>
+        <span class="pomo-chip">☕ 10 min de pausa</span>
+        <span class="pomo-arrow">→</span>
+        <span class="pomo-chip" style="background:var(--dark); color:#fff; border-color:var(--dark);">×3 blocos</span>
+        <span class="pomo-arrow">→</span>
+        <span class="pomo-chip">🌿 30 min de descanso</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <div class="section-head"><span class="eyebrow">09</span><h2>Checklist diário</h2></div>
+    <div class="card two-col">
+      <div class="checklist-group">
+        <h4>Antes de estudar</h4>
+        <div class="check-item" data-id="c1"><div class="box">✓</div><div class="txt">Água</div></div>
+        <div class="check-item" data-id="c2"><div class="box">✓</div><div class="txt">Mesa organizada</div></div>
+        <div class="check-item" data-id="c3"><div class="box">✓</div><div class="txt">Fones de ouvido</div></div>
+        <div class="check-item" data-id="c4"><div class="box">✓</div><div class="txt">Timer Pomodoro</div></div>
+        <div class="check-item" data-id="c5"><div class="box">✓</div><div class="txt">Notion aberto</div></div>
+        <div class="check-item" data-id="c6"><div class="box">✓</div><div class="txt">Material separado</div></div>
+      </div>
+      <div class="checklist-group">
+        <h4>Depois de estudar</h4>
+        <div class="check-item" data-id="c7"><div class="box">✓</div><div class="txt">Resolver exercícios</div></div>
+        <div class="check-item" data-id="c8"><div class="box">✓</div><div class="txt">Fazer resumo</div></div>
+        <div class="check-item" data-id="c9"><div class="box">✓</div><div class="txt">Criar flashcards</div></div>
+        <div class="check-item" data-id="c10"><div class="box">✓</div><div class="txt">Atualizar o GitHub</div></div>
+        <div class="check-item" data-id="c11"><div class="box">✓</div><div class="txt">Planejar o dia seguinte</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="metas">
+    <div class="section-head"><span class="eyebrow">10</span><h2>Metas para 2026</h2></div>
+    <div class="metas-list">
+      <div class="meta-item"><span class="star">★</span>Concluir o primeiro semestre da Unimar com bom desempenho</div>
+      <div class="meta-item"><span class="star">★</span>Estudar todas as semanas para o ENEM</div>
+      <div class="meta-item"><span class="star">★</span>Evoluir no inglês técnico</div>
+      <div class="meta-item"><span class="star">★</span>Criar um portfólio consistente no GitHub</div>
+      <div class="meta-item"><span class="star">★</span>Publicar novos projetos no site pessoal</div>
+      <div class="meta-item"><span class="star">★</span>Manter rotina previsível e sustentável, respeitando suas necessidades</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>feito com 🌸 para a Carol · painel offline, seus dados de checklist ficam salvos só neste navegador</footer>
+
+<script>
+  // ---------- Data ----------
+  const enemData = [
+    { day: "Segunda", label: "SEG", value: "História" },
+    { day: "Terça", label: "TER", value: "Geografia" },
+    { day: "Quarta", label: "QUA", value: "Matemática" },
+    { day: "Quinta", label: "QUI", value: "Português" },
+    { day: "Sexta", label: "SEX", value: "Literatura + Filosofia + Sociologia" },
+    { day: "Sábado", label: "SÁB", value: "Redação ou simulado" },
+  ];
+
+  const weekData = [
+    { day: "Segunda", label: "SEG", faculdade: "Engenharia de Software", enem: "História", projeto: "UML / Documentação" },
+    { day: "Terça", label: "TER", faculdade: "Redes de Computadores", enem: "Geografia", projeto: "Exercícios de redes" },
+    { day: "Quarta", label: "QUA", faculdade: "Engenharia de Software", enem: "Matemática", projeto: "Projeto em Python" },
+    { day: "Quinta", label: "QUI", faculdade: "Redes de Computadores", enem: "Português", projeto: "Laboratório" },
+    { day: "Sexta", label: "SEX", faculdade: "Projeto de Vida e Soft Skills II", enem: "Literatura / Filosofia / Sociologia", projeto: "Revisão geral" },
+    { day: "Sábado", label: "SÁB", faculdade: "Semana Especial III", enem: "Redação ou simulado", projeto: "Organização da semana" },
+    { day: "Domingo", label: "DOM", faculdade: "🌿 Descanso", enem: "Leitura leve", projeto: "Planejamento" },
+  ];
+
+  function buildDaySwitcher(switchEl, panelsEl, data, renderPanel){
+    data.forEach((d, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'day-btn' + (i===0 ? ' active' : '');
+      btn.textContent = d.label;
+      btn.onclick = () => {
+        switchEl.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        panelsEl.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+        panelsEl.children[i].classList.add('active');
+      };
+      switchEl.appendChild(btn);
+
+      const panel = document.createElement('div');
+      panel.className = 'day-panel' + (i===0 ? ' active' : '');
+      panel.innerHTML = renderPanel(d);
+      panelsEl.appendChild(panel);
+    });
+  }
+
+  buildDaySwitcher(
+    document.getElementById('enemSwitch'),
+    document.getElementById('enemPanels'),
+    enemData,
+    (d) => `<div class="row"><div class="label">${d.day}</div><div class="value">${d.value}</div></div>`
+  );
+
+  buildDaySwitcher(
+    document.getElementById('weekSwitch'),
+    document.getElementById('weekPanels'),
+    weekData,
+    (d) => `
+      <div class="row"><div class="label">Faculdade</div><div class="value">${d.faculdade}</div></div>
+      <div class="row"><div class="label">ENEM</div><div class="value">${d.enem}</div></div>
+      <div class="row"><div class="label">Projeto</div><div class="value">${d.projeto}</div></div>
+    `
+  );
+
+  // ---------- Checklist persistence (in-memory + storage API if available) ----------
+  const checklistItems = document.querySelectorAll('.check-item');
+
+  async function loadChecklist(){
+    try{
+      if (window.storage){
+        const result = await window.storage.get('checklist-2026');
+        if (result && result.value){
+          const state = JSON.parse(result.value);
+          checklistItems.forEach(item => {
+            const id = item.dataset.id;
+            if (state[id]) item.classList.add('done');
+          });
+        }
+      }
+    }catch(e){ /* no saved state yet, fine */ }
+  }
+
+  async function saveChecklist(){
+    if (!window.storage) return;
+    const state = {};
+    checklistItems.forEach(item => { state[item.dataset.id] = item.classList.contains('done'); });
+    try{ await window.storage.set('checklist-2026', JSON.stringify(state)); }catch(e){}
+  }
+
+  checklistItems.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      saveChecklist();
+    });
+  });
+
+  loadChecklist();
+</script>
+
+</body>
+</html>
